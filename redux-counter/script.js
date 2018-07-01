@@ -1,7 +1,9 @@
+//Initial State
 const initialState = {
   counter : 0
 }
 
+//RootReducer
 function rootReducer (state = initialState, action){
 
   switch(action.type){
@@ -19,10 +21,11 @@ function rootReducer (state = initialState, action){
 
 }
 
-
+//Create Redux Store
 const store = Redux.createStore(rootReducer);
 
 
+//jQuery DOM Manipulation.
 $(document).ready(
   function(){
     console.log("DOM LOAD COMPLETE...");
