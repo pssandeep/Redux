@@ -4,16 +4,17 @@ const initialState = {
 };
 
 function rootReducer(state = initialState, action) {
+  console.log("rootReducer");
+  console.log(state,action);
   switch (action.type) {
     case "ADD_TODO":
       var newState = { ...state };
       newState.id++;
-      return {
-        ...newState,
-        todos: [...newState.todos, { task: action.task, id: newState.id }]
-      };
+      newState.todos= [...newState.todos, { task: action.task, id: newState.id }]
+      return newState;
     case "REMOVE_TODO":
       let todos = state.todos.filter(val => val.id !== +action.id);
+      console.log(state, todos);
       return { ...state, todos };
     default:
       return state;
