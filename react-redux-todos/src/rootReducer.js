@@ -14,7 +14,7 @@ export default function rootReducer(state = initialState, action) {
         todos: [...newState.todos, { task: action.task, id: newState.id }]
       };
     case REMOVE_TODO:
-      var todos = state.todos.filter(val => val.id != action.id);
+      var todos = state.todos.filter(val => val.id !== action.id);
       return { ...state, todos };
     default:
       return state;
