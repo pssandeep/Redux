@@ -1,48 +1,58 @@
 import React, { Component } from "react";
 import Todo from "./Todo";
-import {connect } from "react-redux";
+import { connect } from "react-redux";
 
 class TodoList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      task:""
-    }
+      task: ""
+    };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.removeTodo = this.removeTodo.bind(this);
   }
 
-  handleSubmit(e){
+  handleSubmit(e) {
     e.preventDefault();
     this.props.dispatch({
-      type : "ADD_TODO",
-      task : this.state.task
+      type: "ADD_TODO",
+      task: this.state.task
     });
-    this.setState({task : ""})
+    this.setState({ task: "" });
     e.target.reset();
   }
 
-  handleChange(e){
-    this.setState({[e.target.name] : e.target.value})
+  handleChange(e) {
+    this.setState({ [e.target.name]: e.target.value });
   }
 
-  removeTodo(id){
+  removeTodo(id) {
     this.props.dispatch({
-      type : "REMOVE_TODO",
+      type: "REMOVE_TODO",
       id
     });
   }
 
   render() {
     let todos = this.props.todos.map((val, index) => (
-      <Todo  removeTodo = {this.removeTodo.bind(this, val.id)} task={val.task} Key={index} />
+      <Todo
+        removeTodo={this.removeTodo.bind(this, val.id)}
+        task={val.task}
+        Key={index}
+      />
     ));
 
     return (
       <div>
-        <form onSubmit = {this.handleSubmit}>
-          <input onChange = {this.handleChange} type = "text" placeholder = "Enter Your Todos" name  = "task" id = "task"/>
+        <form onSubmit={this.handleSubmit}>
+          <input
+            onChange={this.handleChange}
+            type="text"
+            placeholder="Enter Your Todos"
+            name="task"
+            id="task"
+          />
           <button> Add Todo </button>
         </form>
         <ul>{todos}</ul>
@@ -51,7 +61,7 @@ class TodoList extends Component {
   }
 }
 
-function mapStateToProps(reduxState){
+function mapStateToProps(reduxState) {
   return {
     todos: reduxState.todos
   };
