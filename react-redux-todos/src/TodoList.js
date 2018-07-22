@@ -2,27 +2,18 @@ import React, { Component } from "react";
 import Todo from "./Todo";
 import { connect } from "react-redux";
 import { addTodo, removeTodo }  from './actionCreators';
+import { Route } from "react-router-dom";
+import NewToDoForm from "./NewToDoForm";
 
 class TodoList extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      task: ""
-    };
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleChange = this.handleChange.bind(this);
     this.removeTodo = this.removeTodo.bind(this);
+    this.handleAdd = this.handleAdd.bind(this);
   }
 
-  handleSubmit(e) {
-    e.preventDefault();
-    this.props.addTodo(this.state.task);
-    this.setState({ task: "" });
-    e.target.reset();
-  }
-
-  handleChange(e) {
-    this.setState({ [e.target.name]: e.target.value });
+  handleAdd(val){
+    this.props.addTodo(val);
   }
 
   removeTodo(id) {
@@ -40,17 +31,11 @@ class TodoList extends Component {
 
     return (
       <div>
-        <form onSubmit={this.handleSubmit}>
-          <input
-            onChange={this.handleChange}
-            type="text"
-            placeholder="Enter Your Todos"
-            name="task"
-            id="task"
-          />
-          <button> Add Todo </button>
-        </form>
-        <ul>{todos}</ul>
+
+        <Route  path = "/todos/new" component={props => (
+          <NewToDoForm {...props} handleSubmit={this.handleAdd}/>
+        )}/>
+        <Route exact path = "/todos" component ={()=> <div>{todos}</div>}/>
       </div>
     );
   }
